@@ -37,7 +37,12 @@ class LinearClassifier(object):
     for it in xrange(num_iters):
       X_batch = None
       y_batch = None
-
+      
+      batch_indices = np.random.choice(num_train, batch_size)
+        
+      X_batch = X[batch_indices,:]
+      y_batch = y[batch_indices]
+        
       #########################################################################
       # TODO:                                                                 #
       # Sample batch_size elements from the training data and their           #
@@ -49,7 +54,7 @@ class LinearClassifier(object):
       # Hint: Use np.random.choice to generate indices. Sampling with         #
       # replacement is faster than sampling without replacement.              #
       #########################################################################
-      pass
+      #pass
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -59,17 +64,18 @@ class LinearClassifier(object):
       loss_history.append(loss)
 
       # perform parameter update
+      self.W += - learning_rate * grad
       #########################################################################
       # TODO:                                                                 #
       # Update the weights using the gradient and the learning rate.          #
       #########################################################################
-      pass
+      #pass
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
 
-      if verbose and it % 100 == 0:
-        print 'iteration %d / %d: loss %f' % (it, num_iters, loss)
+      #if verbose and it % 100 == 0:
+        #print 'iteration %d / %d: loss %f' % (it, num_iters, loss)
 
     return loss_history
 
@@ -87,11 +93,13 @@ class LinearClassifier(object):
       class.
     """
     y_pred = np.zeros(X.shape[1])
+    y_pred = np.argmax(np.dot(X, self.W), axis=1)
+
     ###########################################################################
     # TODO:                                                                   #
     # Implement this method. Store the predicted labels in y_pred.            #
     ###########################################################################
-    pass
+    #pass
     ###########################################################################
     #                           END OF YOUR CODE                              #
     ###########################################################################
